@@ -1225,7 +1225,7 @@ func (n *LeafNode) updateLeaf(index byte, value []byte) error {
 	// Update the corresponding C1 or C2 commitment.
 	var c *Point
 	var oldC Point
-	if index < NodeWidth/2 {
+	if int(index) < NodeWidth/2 {
 		c = n.c1
 		oldC = *n.c1
 	} else {

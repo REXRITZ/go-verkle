@@ -275,14 +275,14 @@ func verifyVerkleProofWithPreState(proof *Proof, preroot VerkleNode) error {
 		return fmt.Errorf("error getting proof elements: %w", err)
 	}
 
-	if ok, err := verifyVerkleProof(proof, pe.Cis, pe.Zis, pe.Yis, GetConfig()); !ok || err != nil {
+	if ok, err := VerifyVerkleProof(proof, pe.Cis, pe.Zis, pe.Yis, GetConfig()); !ok || err != nil {
 		return fmt.Errorf("error verifying proof: verifies=%v, error=%w", ok, err)
 	}
 
 	return nil
 }
 
-func verifyVerkleProof(proof *Proof, Cs []*Point, indices []uint8, ys []*Fr, tc *Config) (bool, error) {
+func VerifyVerkleProof(proof *Proof, Cs []*Point, indices []uint8, ys []*Fr, tc *Config) (bool, error) {
 	tr := common.NewTranscript("vt")
 	return ipa.CheckMultiProof(tr, tc.conf, proof.Multipoint, Cs, ys, indices)
 }

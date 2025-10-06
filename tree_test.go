@@ -1355,7 +1355,7 @@ func TestRustBanderwagonBlock48(t *testing.T) {
 	t.Logf("serialized proof=%v", vp)
 
 	cfg := GetConfig()
-	if ok, err := verifyVerkleProof(proof, cis, zis, yis, cfg); !ok || err != nil {
+	if ok, err := VerifyVerkleProof(proof, cis, zis, yis, cfg); !ok || err != nil {
 		t.Fatal("proof didn't verify")
 	}
 
@@ -1373,7 +1373,7 @@ func TestRustBanderwagonBlock48(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if ok, err := verifyVerkleProof(dproof, pe.Cis, pe.Zis, pe.Yis, cfg); !ok || err != nil {
+	if ok, err := VerifyVerkleProof(dproof, pe.Cis, pe.Zis, pe.Yis, cfg); !ok || err != nil {
 		t.Fatal("deserialized proof didn't verify")
 	}
 }
@@ -1820,7 +1820,7 @@ func runRandTest(rt randTest) error {
 			}
 			root.Commit()
 			proof, cis, zis, yis, _ := MakeVerkleMultiProof(root, nil, keys, nil)
-			if ok, err := verifyVerkleProof(proof, cis, zis, yis, cfg); !ok || err != nil {
+			if ok, err := VerifyVerkleProof(proof, cis, zis, yis, cfg); !ok || err != nil {
 				rt[i].err = fmt.Errorf("could not verify verkle proof: %s, err %v", ToDot(root), err)
 			}
 		// TODO: reconsider if we should avoid returning pointers in Hash() and Commit()
